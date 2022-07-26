@@ -4,27 +4,14 @@ let up;    // 空白ピース基準で 1 つ上のピースの場所を記録
 let down;  // 空白ピース基準で 1 つ下のピースの場所を記録
 let left;  // 空白ピース基準で 1 つ左のピースの場所を記録
 let right; // 空白ピース基準で 1 つ右のピースの場所を記録
-let count = 0;
 
 // 各ピースの場所を記録
 let positions = [
-   6,  4,  3, 10,
-   7,  2,  1,  5,
-   9, 13, 11,  8,
-  15, 14, 12, 16,
+   1,  2,  3,  4,
+   5,  6,  7,  8,
+   9, 10, 11, 12,
+  13, 14, 16, 15,
 ];
-
-function randomizePositions(array){
-  for(var i = (array.length -1); 0 < i; i--){
-    var r = Math.floor(Math.random() * (i + 1));
-
-    var tmp = array[i];
-    array[i] = array[r];
-    array[r] = tmp;
-  }
-  return array;
-}
-
 
 
 // 空白ピースを基準に、上下左右のピースの場所を調べる関数
@@ -57,13 +44,11 @@ function component() {
 
     piece.style.order = positions[n];
   }
-  document.getElementById('count').innerHTML = "現在のクリック数 : " +  count ;
 }
 
 
 // 初期化処理
 // ----------------------------------------------------------------------------
-randomizePositions(positions);
 component();
 calcAdjacentPositions();
 
@@ -76,7 +61,7 @@ function isFinished(array){
       return false;
     }
     if (array[i] == (array.length -1)){
-      window.alert("Clear! おめでとうございます！");
+      window.alert("Clear!  おめでとうございます！");
       return true;
     }
   }
@@ -100,12 +85,12 @@ function pieceClickHandler(event) {
     [ positions[15], positions[N - 1] ] = [ positions[N - 1], positions[15] ];
 
     // State => View の反映を行う
-    count++ ;
     component();
 
     // 隣接するピースを再計算する
     calcAdjacentPositions(); 
   }
+  isFinished(positions);
 }
 
 
